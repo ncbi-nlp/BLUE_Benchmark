@@ -1,22 +1,17 @@
-"""
-Usage:
-    create [--hoc_dir=<dir>]
-
-Options:
-    --hoc_dir=<dir>     HoC directory [default: data/hoc]
-"""
+import csv
 from pathlib import Path
 
-import docopt
+import fire
 import tqdm
 
 
-def split_doc(docid_pathanme, data_dir, dest):
-    with open(docid_pathanme) as fp:
+def split_doc(docid_file, data_dir, dest):
+    with open(docid_file) as fp:
         docids = [line.strip() for line in fp]
 
     with open(dest, 'w', encoding='utf8') as fout:
-        fout.write('index\tsentence\tlabels\n')
+        writer = csv.writer(fout, delimiter='\t', lineterminator='\n')
+        writer.writerow(['index', 'sentence1', 'sentence2', 'label'])
 
         for docid in tqdm.tqdm(docids):
             with open(data_dir / f'{docid}.txt', encoding='utf8') as fp:
@@ -26,18 +21,16 @@ def split_doc(docid_pathanme, data_dir, dest):
                     text = toks[0]
                     labels = set(l[1:-1] for l in toks[1][1:-1].split(', '))
                     labels = ','.join(sorted(labels))
-                    fout.write(f'{idx}\t{text}\t{labels}\n')
+                    writer.writerow([idx, text, labels])
+
+
+def create_hoc(data_dir):
+    top_dir = Path(data_dir)
+    text_dir = top_dir / 'HoCCorpus'
+    for name in ['train', 'dev', 'test']:
+        print('Creating', name)
+        split_doc(top_dir / f'{name}_docid.txt', text_dir, top_dir / f'{name}.tsv')
 
 
 if __name__ == '__main__':
-    argv = docopt.docopt(__doc__)
-    top_dir = Path(argv['--hoc_dir'])
-    split_doc(top_dir / 'train_docid.txt',
-              top_dir / 'original' / 'HoCCorpus',
-              top_dir / 'train.tsv')
-    split_doc(top_dir / 'dev_docid.txt',
-              top_dir / 'original' / 'HoCCorpus',
-              top_dir / 'dev.tsv')
-    split_doc(top_dir / 'test_docid.txt',
-              top_dir / 'original' / 'HoCCorpus',
-              top_dir / 'test.tsv')
+    fire.Fire(create_hoc)

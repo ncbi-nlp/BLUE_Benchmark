@@ -1,8 +1,4 @@
-"""
-Usage:
-    eval_hoc <gold> <pred>
-"""
-import docopt
+import fire
 import pandas as pd
 import numpy as np
 
@@ -11,35 +7,6 @@ LABELS = ['activating invasion and metastasis', 'avoiding immune destruction',
           'cellular energetics', 'enabling replicative immortality', 'evading growth suppressors',
           'genomic instability and mutation', 'inducing angiogenesis', 'resisting cell death',
           'sustaining proliferative signaling', 'tumor promoting inflammation']
-
-
-def get_doc_data(true_pathname, pred_pathname):
-    data = {}
-
-    true_df = pd.read_csv(true_pathname, sep='\t')
-    pred_df = pd.read_csv(pred_pathname, sep='\t')
-    assert len(true_df) == len(pred_df), \
-        f'Gold line no {len(true_df)} vs Prediction line no {len(pred_df)}'
-
-    for i in range(len(true_df)):
-        # gold
-        row = true_df.iloc[i]
-        key = row['index'][:row['index'].find('_')]
-        if key not in data:
-            data[key] = (set(), set())
-
-        if not pd.isna(row['labels']):
-            for l in row['labels'].split(','):
-                data[key][0].add(LABELS.index(l))
-
-        # pred
-        prediction_row = pred_df.iloc[i]
-        if not pd.isna(prediction_row['labels']):
-            for l in prediction_row['labels'].split(','):
-                data[key][1].add(LABELS.index(l))
-
-    assert len(data) == 315, 'There are 315 documents in the test set: %d' % len(data)
-    return data
 
 
 def _divide(x, y):
@@ -91,9 +58,33 @@ def get_p_r_f_arrary(test_predict_label, test_true_label):
     return mean_prc, mean_rec, f_score
 
 
-if __name__ == '__main__':
-    argv = docopt.docopt(__doc__)
-    data = get_doc_data(argv['<gold>'], argv['<pred>'])
+def eval_hoc(true_file, pred_file):
+    data = {}
+
+    true_df = pd.read_csv(true_file, sep='\t')
+    pred_df = pd.read_csv(pred_file, sep='\t')
+    assert len(true_df) == len(pred_df), \
+        f'Gold line no {len(true_df)} vs Prediction line no {len(pred_df)}'
+
+    for i in range(len(true_df)):
+        true_row = true_df.iloc[i]
+        pred_row = pred_df.iloc[i]
+        assert true_row['index'] == pred_row['index'], \
+            'Index does not match @{}: {} vs {}'.format(i, true_row['index'], pred_row['index'])
+
+        key = true_row['index'][:true_row['index'].find('_')]
+        if key not in data:
+            data[key] = (set(), set())
+
+        if not pd.isna(true_row['labels']):
+            for l in true_row['labels'].split(','):
+                data[key][0].add(LABELS.index(l))
+
+        if not pd.isna(pred_row['labels']):
+            for l in pred_row['labels'].split(','):
+                data[key][1].add(LABELS.index(l))
+
+    assert len(data) == 315, 'There are 315 documents in the test set: %d' % len(data)
 
     y_test = []
     y_pred = []
@@ -116,3 +107,7 @@ if __name__ == '__main__':
     print('Precision: {:.1f}'.format(p*100))
     print('Recall   : {:.1f}'.format(r*100))
     print('F1       : {:.1f}'.format(f1*100))
+
+
+if __name__ == '__main__':
+    fire.Fire(eval_hoc)
