@@ -13,7 +13,7 @@ LABELS = ['activating invasion and metastasis', 'avoiding immune destruction',
           'sustaining proliferative signaling', 'tumor promoting inflammation']
 
 
-def get_data(true_pathname, pred_pathname):
+def get_doc_data(true_pathname, pred_pathname):
     data = {}
 
     true_df = pd.read_csv(true_pathname, sep='\t')
@@ -28,15 +28,15 @@ def get_data(true_pathname, pred_pathname):
         if key not in data:
             data[key] = (set(), set())
 
-        for l in row['labels'].split(','):
-            if int(l[-1]) == 1:
-                data[key][0].add(int(l[0]))
+        if not pd.isna(row['labels']):
+            for l in row['labels'].split(','):
+                data[key][0].add(LABELS.index(l))
 
         # pred
         prediction_row = pred_df.iloc[i]
-        for l in prediction_row['labels'].split(','):
-            if int(l[-1]) == 1:
-                data[key][1].add(int(l[0]))
+        if not pd.isna(prediction_row['labels']):
+            for l in prediction_row['labels'].split(','):
+                data[key][1].add(LABELS.index(l))
 
     assert len(data) == 315, 'There are 315 documents in the test set: %d' % len(data)
     return data
@@ -84,9 +84,6 @@ def get_p_r_f_arrary(test_predict_label, test_true_label):
         prc_list.append(prc)
         rec_list.append(rec)
         f_score_list.append(f_score)
-        # print(test_predict_label[i], test_true_label[i], label_pred_set, label_gold_set, prc, rec)
-        # if i == 10:
-        #     break
 
     mean_prc = np.mean(prc_list)
     mean_rec = np.mean(rec_list)
@@ -96,7 +93,7 @@ def get_p_r_f_arrary(test_predict_label, test_true_label):
 
 if __name__ == '__main__':
     argv = docopt.docopt(__doc__)
-    data = get_data(argv['<gold>'], argv['<pred>'])
+    data = get_doc_data(argv['<gold>'], argv['<pred>'])
 
     y_test = []
     y_pred = []
