@@ -87,8 +87,8 @@ def get_p_r_f_arrary(test_predict_label, test_true_label):
 
     mean_prc = np.mean(prc_list)
     mean_rec = np.mean(rec_list)
-    f_score_zhou = _divide(2 * mean_prc * mean_rec, (mean_prc + mean_rec))
-    return mean_prc, mean_rec, f_score_zhou
+    f_score = _divide(2 * mean_prc * mean_rec, (mean_prc + mean_rec))
+    return mean_prc, mean_rec, f_score
 
 
 if __name__ == '__main__':
@@ -113,6 +113,6 @@ if __name__ == '__main__':
     y_pred = np.array(y_pred)
 
     r, p, f1 = get_p_r_f_arrary(y_pred, y_test)
-    print('Precision: {}'.format(p*100))
-    print('Recall   : {}'.format(r*100))
-    print('F1       : {}'.format(f1*100))
+    print('Precision: {:.1f}'.format(p*100))
+    print('Recall   : {:.1f}'.format(r*100))
+    print('F1       : {:.1f}'.format(f1*100))
