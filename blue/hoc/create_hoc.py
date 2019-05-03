@@ -1,6 +1,6 @@
 """
 Usage:
-    create <source_dir>
+    create_hoc <source_dir>
 
 Options:
     source_dir  default: data/hoc
