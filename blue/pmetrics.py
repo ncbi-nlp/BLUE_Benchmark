@@ -364,53 +364,8 @@ def precision_recall_fscore_multilabel(y_true, y_pred, *_, **kwargs):
         f1 = _divide(2 * r * p, r + p)
     else:
         raise NotImplementedError
-        # p, r, f1, _ = precision_recall_fscore_support(y_true=y_true, y_pred=y_pred, average='macro')
-    # else:
-    #     p, r, f1, _ = precision_recall_fscore_support(y_true=y_true, y_pred=y_pred, average='weighted')
     return r, p, f1
 
-
-def apk(actual, predicted, k=10):
-    """
-    Computes the average precision at k.
-    This function computes the average prescision at k between two lists of
-    items.
-    Parameters
-    ----------
-    actual : list
-             A list of elements that are to be predicted (order doesn't matter)
-    predicted : list
-                A list of predicted elements (order does matter)
-    k : int, optional
-        The maximum number of predicted elements
-    Returns
-    -------
-    score : double
-            The average precision at k over the input lists
-    """
-    if len(predicted) > k:
-        predicted = predicted[:k]
-
-    score = 0.0
-    num_hits = 0.0
-
-    for i, p in enumerate(predicted):
-        if p in actual and p not in predicted[:i]:
-            num_hits += 1.0
-            score += num_hits / (i + 1.0)
-            # print('apk', p, i, num_hits, num_hits / (i + 1.0))
-
-    # if not actual:
-    #     return 0.0
-
-    if num_hits == 0:
-        return 0
-
-    x = score / num_hits
-
-    # x = score / min(len(actual), k)
-    # print('apk total', x)
-    return x
 
 
 """
