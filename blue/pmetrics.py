@@ -1,5 +1,5 @@
 """
-Copyright (c) 2018, Yifan Peng
+Copyright (c) 2019, Yifan Peng
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -105,17 +105,6 @@ class Report(object):
             row += [np.nan]
             tables.append(['macro'] + row)
 
-        # if macro_weighted:
-        #     weights = TP + FN
-        #     row = [np.nan] * 4
-        #     row += [np.average(t, weights=weights) for t in [PPV, TPR, F1, ACC, TPR, TNR, PPV, NPV]]
-        #     row += [np.nan]
-        #     tables.append(['macro weighted'] + row)
-        #
-        # if micro_weighted:
-        #     row = list(get_micro_weighted(TP, FN, FP, FN))
-        #     tables.append(['micro weighted'] + [np.nan] * 4 + row[4:-1] + [np.nan])
-
         df = pd.DataFrame(tables, columns=headings)
         float_formatter = ['g'] * 5 + ['.{}f'.format(digits)] * 8 + ['g']
         rtn = Report()
@@ -126,14 +115,8 @@ class Report(object):
         rtn.weighted_acc = weighted_acc(TP, FN, FP, FN)
         return rtn
 
-    # def __getattr__(self, item):
-    #     return self[item]
-    #
-    # def __dir__(self):
-    #     return super().__dir__() + [str(k) for k in self.keys()]
 
-
-def _divide(x, y):
+def divide(x, y):
     return np.true_divide(x, y, out=np.zeros_like(x, dtype=np.float), where=y != 0)
 
 
@@ -212,27 +195,6 @@ def cohen_kappa(confusion, weights=None):
     return 1 - k
 
 
-def mean_confidence_interval(data, confidence: float = 0.95) -> Tuple[float, float, float]:
-    """
-    a confidence interval on the mean
-
-    Args:
-        data: an array
-        confidence
-
-    Returns:
-        mean
-        The lower bound of confidence intervals
-        The upper bound of confidence intervals
-    """
-    a = 1.0 * np.array(data)
-    n = len(a)
-    m, se = np.mean(a), scipy.stats.sem(a)
-    # h = se * distributions.t.ppf((1+confidence)/2., n-1)
-    h = se * scipy.stats.t.ppf((1 + confidence) / 2., n - 1)
-    return m, m - h, m + h
-
-
 def micro(tp, tn, fp, fn):
     """Returns tp, tn, fp, fn, ppv, tpr, f1, acc, tpr, tnr, ppv, npv, support"""
     TP, TN, FP, FN = [np.sum(t) for t in [tp, tn, fp, fn]]
@@ -276,54 +238,6 @@ def micro_weighted(tp, tn, fp, fn):
     return TP, TN, FP, FN, PPV, TPR, F1, np.nan, TPR, TNR, PPV, NPV, TP + FN
 
 
-def exact_Clopper_Pearson_confidence_intervals(r, n, alpha=0.05):
-    """The Clopper–Pearson interval is an early and very common method for calculating binomial confidence intervals.
-    https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval#Clopper%E2%80%93Pearson_interval
-
-    Args:
-        r: the number of successes observed in the sample. 0<= r <=n
-        n: total number of samples
-        alpha: Significance level. 0.05 by default
-    """
-    dfn = 2 * r
-    dfd = 2 * (n - r + 1)
-    f1 = distributions.f.ppf(alpha / 2, dfn, dfd)
-    x1 = 1 / (1 + (n - r + 1) / (r * f1))
-
-    dfn = 2 * (r + 1)
-    dfd = 2 * (n - r)
-    f2 = distributions.f.ppf(1 - alpha / 2, dfn, dfd)
-    x2 = 1 / (1 + (n - r) / ((r + 1) * f2))
-
-    return r / n, x1, x2
-
-
-def pearson_confidence_intervals(x, y, alpha: float = 0.05) -> Tuple[float, float, float, float]:
-    """
-    Calculate Pearson correlation along with the confidence interval using scipy and numpy
-
-    https://gist.github.com/zhiyzuo/d38159a7c48b575af3e3de7501462e04
-
-    Args:
-        x: iterable object such as a list or np.array
-        y: iterable object such as a list or np.array
-        alpha: Significance level. 0.05 by default
-
-    Returns:
-        Pearson's correlation coefficient
-        The corresponding p value
-        The lower bound of confidence intervals
-        The upper bound of confidence intervals
-    """
-    r, p = stats.pearsonr(x, y)
-    r_z = np.arctanh(r)
-    se = 1 / np.sqrt(len(x) - 3)
-    z = stats.norm.ppf(1 - alpha / 2)
-    lo_z, hi_z = r_z - z * se, r_z + z * se
-    lo, hi = np.tanh((lo_z, hi_z))
-    return r, p, lo, hi
-
-
 def confusion_matrix_report(confusion_matrix, *_, **kwargs) -> 'Report':
     classes_ = kwargs.get('classes_', None)
     digits = kwargs.pop('digits', 3)
@@ -364,17 +278,6 @@ def confusion_matrix_report(confusion_matrix, *_, **kwargs) -> 'Report':
         row += [np.average(t) for t in [PPV, TPR, F1, ACC, TPR, TNR, PPV, NPV]]
         row += [np.nan]
         tables.append(['macro'] + row)
-
-    # if macro_weighted:
-    #     weights = TP + FN
-    #     row = [np.nan] * 4
-    #     row += [np.average(t, weights=weights) for t in [PPV, TPR, F1, ACC, TPR, TNR, PPV, NPV]]
-    #     row += [np.nan]
-    #     tables.append(['macro weighted'] + row)
-    #
-    # if micro_weighted:
-    #     row = list(get_micro_weighted(TP, FN, FP, FN))
-    #     tables.append(['micro weighted'] + [np.nan] * 4 + row[4:-1] + [np.nan])
 
     df = pd.DataFrame(tables, columns=headings)
     float_formatter = ['g'] * 5 + ['.{}f'.format(digits)] * 8 + ['g']
