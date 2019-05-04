@@ -9,10 +9,6 @@ LABELS = ['activating invasion and metastasis', 'avoiding immune destruction',
           'sustaining proliferative signaling', 'tumor promoting inflammation']
 
 
-def _divide(x, y):
-    return np.true_divide(x, y, out=np.zeros_like(x, dtype=np.float), where=y != 0)
-
-
 def get_p_r_f_arrary(test_predict_label, test_true_label):
     num, cat = test_predict_label.shape
     acc_list = []
@@ -54,7 +50,7 @@ def get_p_r_f_arrary(test_predict_label, test_true_label):
 
     mean_prc = np.mean(prc_list)
     mean_rec = np.mean(rec_list)
-    f_score = _divide(2 * mean_prc * mean_rec, (mean_prc + mean_rec))
+    f_score = divide(2 * mean_prc * mean_rec, (mean_prc + mean_rec))
     return mean_prc, mean_rec, f_score
 
 

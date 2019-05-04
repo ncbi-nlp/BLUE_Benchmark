@@ -24,9 +24,9 @@ def split_doc(docid_file, data_dir, dest):
                     writer.writerow([idx, text, labels])
 
 
-def create_hoc(data_dir):
-    top_dir = Path(data_dir)
-    text_dir = top_dir / 'HoCCorpus'
+def create_hoc(hoc_dir):
+    hoc_dir = Path(hoc_dir)
+    text_dir = hoc_dir / 'HoCCorpus'
     for name in ['train', 'dev', 'test']:
         print('Creating', name)
         split_doc(top_dir / f'{name}_docid.txt', text_dir, top_dir / f'{name}.tsv')
