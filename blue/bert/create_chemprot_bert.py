@@ -1,23 +1,13 @@
-"""
-Usage:
-    create_chemprot <abstracts> <entities> <gs> <dest>
-
-Options:
-    <abstracts>
-    <entities>
-    <gs>
-    <dest>
-"""
-
 import collections
 import csv
 import itertools
+from pathlib import Path
 
-import docopt
+import fire
 import tqdm
 
-from blue import pstring
-from blue.preprocessing import tokenize_text
+from blue.ext import pstring
+from blue.ext.preprocessing import tokenize_text
 
 
 def find_entities(sentence, entities, entity_type):
@@ -108,11 +98,11 @@ def merge_sentences(sentences):
     return new_sentences
 
 
-def convert(abstract_file, entities_file, relation_file, dest, validate_relations=None):
+def convert(abstract_file, entities_file, relation_file, output):
     # abstract
     total_sentences = collections.OrderedDict()
     with open(abstract_file, encoding='utf8') as fp:
-        for line in fp:
+        for line in tqdm.tqdm(fp, desc=abstract_file.stem):
             toks = line.strip().split('\t')
             text = toks[1] + ' ' + toks[2]
             text = pstring.printable(text, greeklish=True)
@@ -122,7 +112,7 @@ def convert(abstract_file, entities_file, relation_file, dest, validate_relation
     # entities
     entities = collections.defaultdict(list)
     with open(entities_file, encoding='utf8') as fp:
-        for line in fp:
+        for line in tqdm.tqdm(fp, desc=entities_file.stem):
             toks = line.strip().split('\t')
             entities[toks[0]].append({
                 'docid': toks[0],
@@ -134,7 +124,7 @@ def convert(abstract_file, entities_file, relation_file, dest, validate_relation
     # relations
     relations = collections.defaultdict(list)
     with open(relation_file, encoding='utf8') as fp:
-        for line in fp:
+        for line in tqdm.tqdm(fp, desc=relation_file.stem):
             toks = line.strip().split('\t')
             relations[toks[0]].append({
                 'docid': toks[0],
@@ -144,7 +134,7 @@ def convert(abstract_file, entities_file, relation_file, dest, validate_relation
                 'toks': toks
             })
 
-    with open(dest, 'w') as fp:
+    with open(output, 'w') as fp:
         writer = csv.writer(fp, delimiter='\t', lineterminator='\n')
         writer.writerow(['index', 'sentence', 'label'])
         cnt = 0
@@ -165,20 +155,32 @@ def convert(abstract_file, entities_file, relation_file, dest, validate_relation
                             writer.writerow([f'{docid}.{chem["id"]}.{gene["id"]}', text, l])
                             cnt += 1
 
-    if validate_relations is not None and validate_relations != cnt:
-        print(f'Should have {validate_relations}, but have {cnt} relations')
-    else:
-        print(f'Have {cnt} relations')
-    print('-' * 80)
-    for docid, rs in relations.items():
-        if len(rs) > 0:
-            for r in rs:
-                print('\t'.join(r['toks']))
-                print_rel_debug(total_sentences[r['docid']], entities[r['docid']],
-                                r['Arg1'], r['Arg2'])
-                print('-' * 80)
+    # print('-' * 80)
+    # for docid, rs in relations.items():
+    #     if len(rs) > 0:
+    #         for r in rs:
+    #             print('\t'.join(r['toks']))
+    #             print_rel_debug(total_sentences[r['docid']], entities[r['docid']],
+    #                             r['Arg1'], r['Arg2'])
+    #             print('-' * 80)
+
+
+def create_chemprot_bert(data_dir, output_dir):
+    data_dir = Path(data_dir)
+    output_dir = Path(output_dir)
+    convert(data_dir / 'chemprot_training/chemprot_training_abstracts.tsv',
+            data_dir / 'chemprot_training/chemprot_training_entities.tsv',
+            data_dir / 'chemprot_training/chemprot_training_gold_standard.tsv',
+            output_dir / 'train.tsv')
+    # convert(data_dir / 'chemprot_development/chemprot_development_abstracts.tsv',
+    #         data_dir / 'chemprot_development/chemprot_development_entities.tsv',
+    #         data_dir / 'chemprot_development/chemprot_development_gold_standard.tsv',
+    #         output_dir / 'dev.tsv')
+    # convert(data_dir / 'chemprot_test_gs/chemprot_test_abstracts_gs.tsv',
+    #         data_dir / 'chemprot_test_gs/chemprot_test_entities_gs.tsv',
+    #         data_dir / 'chemprot_test_gs/chemprot_test_gold_standard.tsv',
+    #         output_dir / 'train.tsv')
 
 
 if __name__ == '__main__':
-    argv = docopt.docopt(__doc__)
-    convert(argv['<abstracts>'], argv['<entities>'], argv['<gs>'], argv['<dest>'])
+    fire.Fire(create_chemprot_bert)

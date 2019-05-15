@@ -1,18 +1,10 @@
-"""
-Usage:
-    create_medni <gold_directory> <dest>
-
-Options:
-    <gold_directory>
-    <dest>
-"""
-
 import csv
+import logging
 import os
 import re
 
 import bioc
-import docopt
+import fire
 from lxml import etree
 
 
@@ -49,12 +41,12 @@ def replace_text(text, offset, ann1, ann2):
     return before + f'@{ann1["type"]}$' + middle + f'@{ann2["type"]}$' + after
 
 
-def convert(top_dir, dest):
-    fp = open(dest, 'w')
+def create_ddi_bert(gold_directory, output):
+    fp = open(output, 'w')
     writer = csv.writer(fp, delimiter='\t', lineterminator='\n')
     writer.writerow(['index', 'sentence', 'label'])
     cnt = 0
-    for root, dirs, files in os.walk(top_dir):
+    for root, dirs, files in os.walk(gold_directory):
         for name in files:
             pathname = os.path.join(root, name)
             tree = etree.parse(pathname)
@@ -65,14 +57,25 @@ def convert(top_dir, dest):
 
                 entities = {}
                 for etag in stag.xpath('entity'):
+                    id = etag.get('id')
                     m = re.match('(\d+)-(\d+)', etag.get('charOffset'))
-                    assert m is not None
-                    entities[etag.get('id')] = {
-                        'start': int(m.group(1)),
-                        'end': int(m.group(2)),
+                    if m is None:
+                        logging.warning('{}:{}: charOffset does not match. {}'.format(
+                        output, id, etag.get('charOffset')))
+                        continue
+                    start = int(m.group(1))
+                    end = int(m.group(2)) + 1
+                    expected_text = etag.get('text')
+                    actual_text = sentence.text[start:end]
+                    if expected_text != actual_text:
+                        logging.warning('{}:{}: Text does not match. Expected {}. Actual {}'.format(
+                            output, id, repr(expected_text), repr(actual_text)))
+                    entities[id] = {
+                        'start': start,
+                        'end': end,
                         'type': etag.get('type'),
-                        'id': etag.get('id'),
-                        'text': etag.get('text')
+                        'id': id,
+                        'text': actual_text
                     }
                 for rtag in stag.xpath('pair'):
                     if rtag.get('ddi') == 'false':
@@ -89,5 +92,5 @@ def convert(top_dir, dest):
 
 
 if __name__ == '__main__':
-    argv = docopt.docopt(__doc__)
-    convert(argv['gold_directory'], argv['<dest>'])
+    fire.Fire(create_ddi_bert)
+

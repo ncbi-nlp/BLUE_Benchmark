@@ -1,7 +1,3 @@
-"""
-Usage:
-    create_i2b2 <gold_directory> <dest_directory>
-"""
 import csv
 import itertools
 import os
@@ -9,14 +5,13 @@ import re
 from pathlib import Path
 from typing import Match
 
-import docopt
-import pandas as pd
 import bioc
+import fire
+import pandas as pd
 import tqdm
 
-from blue.chemprot.create_chemprot import print_rel_debug
-from blue.ddi.create_ddi import replace_text
-
+from blue.bert.create_chemprot_bert import print_rel_debug
+from blue.bert.create_ddi_bert import replace_text
 
 labels = ['PIP', 'TeCP', 'TeRP', 'TrAP', 'TrCP', 'TrIP', 'TrNAP', 'TrWP', 'false']
 
@@ -68,7 +63,9 @@ def _get_ann_offset(sentences, match_obj: Match,
     actual = sentence.text[start - sentence.offset:end - sentence.offset].lower()
     expected = text.lower()
     assert actual == expected, 'Cannot match at %s:\n%s\n%s\nFind: %r, Matched: %r' \
-        % (sentence.infons['filename'], sentence.text, match_obj.string, actual, expected)
+                               % (
+                               sentence.infons['filename'], sentence.text, match_obj.string, actual,
+                               expected)
     return start, end, text
 
 
@@ -104,8 +101,9 @@ def _find_anns(anns, start, end):
     raise ValueError
 
 
-def read_relations(pathname, sentences,cons):
-    pattern = re.compile(r'c="(.*?)" (\d+):(\d+) (\d+):(\d+)\|\|r="(.*?)"\|\|c="(.*?)" (\d+):(\d+) (\d+):(\d+)')
+def read_relations(pathname, sentences, cons):
+    pattern = re.compile(
+        r'c="(.*?)" (\d+):(\d+) (\d+):(\d+)\|\|r="(.*?)"\|\|c="(.*?)" (\d+):(\d+) (\d+):(\d+)')
 
     relations = []
     with open(pathname) as fp:
@@ -130,7 +128,7 @@ def read_relations(pathname, sentences,cons):
 
 def find_relations(relations, ann1, ann2):
     labels = []
-    for i in range(len(relations)-1, -1, -1):
+    for i in range(len(relations) - 1, -1, -1):
         r = relations[i]
         if (r['Arg1'] == ann1['id'] and r['Arg2'] == ann2['id']) \
                 or (r['Arg1'] == ann2['id'] and r['Arg2'] == ann1['id']):
@@ -152,8 +150,6 @@ def convert(top_dir, dest):
 
             sentences = read_text(text_pathname)
             # read assertions
-            # asts = read_annotations(top_dir / 'ast' / f'{text_pathname.stem}.ast',
-            #                         sentences)
             cons = read_annotations(top_dir / 'concept' / f'{text_pathname.stem}.con',
                                     sentences)
             # read relations
@@ -178,7 +174,6 @@ def convert(top_dir, dest):
                     print(r['string'])
                     print_rel_debug(sentences, cons, r['Arg1'], r['Arg2'])
                     print('-' * 80)
-            # break
     fp.close()
 
 
@@ -202,10 +197,9 @@ def split_doc(train1, train2, dev_docids, dest_dir):
                 twriter.writerow(row)
 
 
-if __name__ == '__main__':
-    argv = docopt.docopt(__doc__)
-    data_path = Path(argv['<gold_directory>'])
-    dest_path = Path(argv['<dest_directory>'])
+def create_i2b2_bert(gold_directory, output_directory):
+    data_path = Path(gold_directory)
+    dest_path = Path(output_directory)
     convert(data_path / 'original/reference_standard_for_test_data',
             dest_path / 'test.tsv')
     convert(data_path / 'original/concept_assertion_relation_training_data/beth',
@@ -216,3 +210,7 @@ if __name__ == '__main__':
               dest_path / 'train-partners.tsv',
               data_path / 'dev-docids.txt',
               dest_path)
+
+
+if __name__ == '__main__':
+    fire.Fire(create_i2b2_bert)

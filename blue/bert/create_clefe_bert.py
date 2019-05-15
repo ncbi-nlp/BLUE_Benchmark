@@ -7,7 +7,7 @@ from pathlib import Path
 import tqdm
 from lxml import etree
 
-from blue.preprocessing import tokenize_text, print_ner_debug, write_bert_ner_file
+from blue.ext.preprocessing import tokenize_text, print_ner_debug, write_bert_ner_file
 
 
 def pattern_repl(matchobj, prefix):

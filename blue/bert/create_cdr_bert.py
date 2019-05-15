@@ -1,20 +1,8 @@
-"""
-Usage:
-    create_cdr disease <source> <dest>
-    create_cdr chemical <source> <dest>
-
-Options:
-    source  PubTator file
-    dest    tsv file
-"""
-import docopt
-import en_core_web_sm
+import fire
 import tqdm
 
-from blue import pubtator
-from blue.preprocessing import tokenize_text, print_ner_debug, write_bert_ner_file
-
-nlp = en_core_web_sm.load()
+from blue.ext import pubtator
+from blue.ext.preprocessing import tokenize_text, print_ner_debug, write_bert_ner_file
 
 
 def _find_toks(sentences, start, end):
@@ -61,9 +49,13 @@ def convert(src, dest, entity_type, validate_mentions=None):
         print(f'Have {cnt} mentions')
 
 
+class Commend:
+    def chemical(self, input, output):
+        convert(input, output, 'Chemical')
+
+    def disease(self, input, output):
+        convert(input, output, 'Disease')
+
+
 if __name__ == '__main__':
-    argv = docopt.docopt(__doc__)
-    if 'chemical' in argv:
-        convert(argv['<source>'], argv['<dest>'], 'Chemical')
-    elif 'disease' in argv:
-        convert(argv['<source>'], argv['<dest>'], 'Disease')
+    fire.Fire(Commend)

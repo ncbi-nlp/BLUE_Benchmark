@@ -2,6 +2,7 @@ import fire
 import pandas as pd
 import numpy as np
 
+from blue.ext.pmetrics import divide
 
 LABELS = ['activating invasion and metastasis', 'avoiding immune destruction',
           'cellular energetics', 'enabling replicative immortality', 'evading growth suppressors',

@@ -29,7 +29,7 @@ def create_hoc(hoc_dir):
     text_dir = hoc_dir / 'HoCCorpus'
     for name in ['train', 'dev', 'test']:
         print('Creating', name)
-        split_doc(top_dir / f'{name}_docid.txt', text_dir, top_dir / f'{name}.tsv')
+        split_doc(hoc_dir / f'{name}_docid.txt', text_dir, hoc_dir / f'{name}.tsv')
 
 
 if __name__ == '__main__':
