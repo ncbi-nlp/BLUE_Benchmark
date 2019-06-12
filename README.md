@@ -14,9 +14,9 @@ highlight common biomedicine text-mining challenges.
 | BC5CDR-disease  |  4182 | 4244 | 4424 | NER                     | F1                  | Biomedical |
 | BC5CDR-chemical |  5203 | 5347 | 5385 | NER                     | F1                  | Biomedical |
 | ShARe/CLEFE     |  4628 | 1075 | 5195 | NER                     | F1                  | Clinical   |
-| DDI             |  2937 | 1004 |  979 | Relation                | extraction          | micro      |
-| ChemProt        |  4154 | 2416 | 3458 | Relation extraction     | micro               | F1         |
-| i2b2            |  2010 | 3110 |   11 | 6293                    | Relation extraction | F1         |
+| DDI             |  2937 | 1004 |  979 | Relation extraction     | micro F1            | Biomedical |
+| ChemProt        |  4154 | 2416 | 3458 | Relation extraction     | micro F1            | Biomedical |
+| i2b2-2010       |  3110 |   11 | 6293 | Relation extraction     | F1                  | Clinical   |
 | HoC             |  1108 |  157 |  315 | Document classification | F1                  | Biomedical |
 | MedNLI          | 11232 | 1395 | 1422 | Inference               | accuracy            | Clinical   |
 
