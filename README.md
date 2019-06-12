@@ -55,7 +55,7 @@ We use 315 (~20%) abstracts for testing and the remaining abstracts for training
 ### Inference task
 
 [MedNLI](https://physionet.org/physiotools/mimic-code/mednli/) is a collection of sentence pairs selected from MIMIC-III. We use the same training, development,
-and test sets in []Romanov and Shivade](https://www.aclweb.org/anthology/D18-1187)
+and test sets in [Romanov and Shivade](https://www.aclweb.org/anthology/D18-1187)
 
 ## Baselines
 
@@ -72,6 +72,19 @@ and test sets in []Romanov and Shivade](https://www.aclweb.org/anthology/D18-118
 | HoC             |       F |  81.5 | 80.0 |    82.9 |                85.3 |                  83.1 |                 87.3 |                   85.3 |
 | MedNLI          |     acc |  73.5 | 71.4 |    80.5 |                82.2 |                  84.0 |                 81.5 |                   83.8 |
 
+SOTA, state-of-the-art as of April 2019, to the best of our knowledge
+
+* MedSTS, BIOSSES: Chen et al. 2019. [BioSentVec: creating sentence embeddings for biomedical texts](https://arxiv.org/abs/1810.09302v2). In Proceedings of the 7th IEEE International Conference on Healthcare Informatics.
+* BC5CDR-disease, BC5CDR-chem: Yoon et al. 2018. [CollaboNet: collaboration of deep neural networks for biomedical named entity recognition](https://arxiv.org/abs/1809.07950v1). arXiv preprint arXiv:1809.07950.
+* ShARe/CLEFE: Leaman et al. 2015. [Challenges in clinical natural language processing for automated disorder normalization](https://www.sciencedirect.com/science/article/pii/S1532046415001501?via%3Dihub). Journal of biomedical informatics, 57:28–37.
+* DDI: Zhang et al. 2018. [Drug-drug interaction extraction via hierarchical RNNs on sequence and shortest dependency paths](https://academic.oup.com/bioinformatics/article/34/5/828/4565590). Bioinformatics (Oxford, England), 34:828–835.
+* Chem-Prot: Peng et al. 2018. [Extracting chemical-protein relations with ensembles of SVM and deep learning models](https://academic.oup.com/database/article/doi/10.1093/database/bay073/5055578). Database: the journal of biological
+databases and curation, 2018.
+* i2b2: Rink et al. 2011. [Automatic extraction of relations between medical concepts in clinical texts](https://academic.oup.com/jamia/article/18/5/594/833364). Journal of the American Medical Informatics Association, 18:594–600.
+* HoC: Du et al. 2019. [ML-Net: multilabel classification of biomedical texts with deep neural networks](https://arxiv.org/abs/1811.05475v2). Journal of the American Medical Informatics Association (JAMIA).
+* MedNLI: Romanov et al. 2018. [Lessons from natural language inference in the clinical domain](https://www.aclweb.org/anthology/D18-1187). In Proceedings of EMNLP, pages 1586–1596.
+
+P: PubMed, P+M: PubMed + MIMIC-III
 
 ### Fine-tuning with ELMo
 
@@ -83,7 +96,7 @@ We iterated the training process for 20 epochs with batch size 64 and early stop
 
 ### Fine-tuning with BERT
 
-Please see [https://github.com/ncbi-nlp/NCBI_BERT](https://github.com/ncbi-nlp/NCBI_BERT)
+Please see [https://github.com/ncbi-nlp/NCBI_BERT](https://github.com/ncbi-nlp/NCBI_BERT).
 
 
 ## Citing NCBI BERT
