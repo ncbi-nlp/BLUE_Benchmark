@@ -57,6 +57,10 @@ We use 315 (~20%) abstracts for testing and the remaining abstracts for training
 [MedNLI](https://physionet.org/physiotools/mimic-code/mednli/) is a collection of sentence pairs selected from MIMIC-III. We use the same training, development,
 and test sets in [Romanov and Shivade](https://www.aclweb.org/anthology/D18-1187)
 
+### Datasets
+
+Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE/releases/tag/0.1](https://github.com/ncbi-nlp/BLUE/releases/tag/0.1)
+
 ## Baselines
 
 | Corpus          | Metrics | SOTA* | ELMo | BioBERT | NCBI_BERT(base) (P) | NCBI_BERT(base) (P+M) | NCBI_BERT(large) (P) | NCBI_BERT(large) (P+M) |
