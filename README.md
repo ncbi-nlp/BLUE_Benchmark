@@ -59,7 +59,7 @@ and test sets in [Romanov and Shivade](https://www.aclweb.org/anthology/D18-1187
 
 ### Datasets
 
-Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE/releases/tag/0.1](https://github.com/ncbi-nlp/BLUE/releases/tag/0.1)
+Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1](https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1)
 
 ## Baselines
 
