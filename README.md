@@ -107,8 +107,8 @@ Please see [https://github.com/ncbi-nlp/NCBI_BERT](https://github.com/ncbi-nlp/N
 
 ## Citing BLUE
 
-*  Peng Y, Yan S, Lu Z. Transfer Learning in Biomedical Natural Language Processing: An
-Evaluation of BERT and ELMo on Ten Benchmarking Datasets. In *Proceedings of the Workshop on Biomedical Natural Language Processing (BioNLP)*. 2019.
+*  Peng Y, Yan S, Lu Z. [Transfer Learning in Biomedical Natural Language Processing: An
+Evaluation of BERT and ELMo on Ten Benchmarking Datasets](https://arxiv.org/abs/1906.05474). In *Proceedings of the Workshop on Biomedical Natural Language Processing (BioNLP)*. 2019.
 
 ```
 @InProceedings{peng2019transfer,
