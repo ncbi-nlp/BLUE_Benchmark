@@ -28,7 +28,7 @@ These tasks cover a diverse range of text genres (biomedical literature and clin
 
 ### Sentence similarity
 
-[BIOSSTS](http://tabilab.cmpe.boun.edu.tr/BIOSSES/) is a corpus of sentence pairs selected from the Biomedical Summarization Track Training Dataset in the biomedical domain.
+[BIOSSES](http://tabilab.cmpe.boun.edu.tr/BIOSSES/) is a corpus of sentence pairs selected from the Biomedical Summarization Track Training Dataset in the biomedical domain.
 Here, we randomly select 80% for training and 20% for testing because there is no standard splits in the released data.
 
 [MedSTS](https://mayoclinic.pure.elsevier.com/en/publications/medsts-a-resource-for-clinical-semantic-textual-similarity) is a corpus of sentence pairs selected from Mayo Clinics clinical data warehouse.
