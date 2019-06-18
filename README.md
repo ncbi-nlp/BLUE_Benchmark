@@ -1,9 +1,14 @@
 # BLUE, the Biomedical Language Understanding Evaluation benchmark
 
+**\*\*\*\*\* New June 17th, 2019: data in BERT format \*\*\*\*\***
+
+We uploaded some [datasets](https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1) that are ready to be used with the [NCBI_BERT codes](https://github.com/ncbi-nlp/NCBI_BERT).
+
+## Introduction
+
 BLUE benchmark consists of five different biomedicine text-mining tasks with ten corpora.
 Here, we rely on preexisting datasets because they have been widely used by the BioNLP community as shared tasks.
-These tasks cover a diverse range of text genres (biomedical literature and clinical notes), dataset sizes, and degrees of difficulty and, more importantly,
-highlight common biomedicine text-mining challenges.
+These tasks cover a diverse range of text genres (biomedical literature and clinical notes), dataset sizes, and degrees of difficulty and, more importantly, highlight common biomedicine text-mining challenges.
 
 ## Tasks
 
