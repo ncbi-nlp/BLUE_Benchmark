@@ -4,6 +4,7 @@ import re
 import shutil
 from pathlib import Path
 
+import fire
 import tqdm
 from lxml import etree
 
@@ -145,22 +146,22 @@ def split_development(data_path, devel_docids_pathname):
             shutil.copy(text_file, dest)
 
 
-if __name__ == '__main__':
-    data_path = ppathlib.data() / 'bionlp2019/data/ShAReCLEFEHealthCorpus/Origin'
+def create_clefe_bert(gold_directory, output_directory):
+    data_path = Path(gold_directory)
+    dest_path = Path(output_directory)
 
-    # convert_train_gs_to_text(data_path / 'Task1TrainSetGOLD199knowtatorehost/ALLSAVED',
-    #                          data_path / 'Task1TrainSetGOLD199knowtatorehost/Task1Gold')
-
-    # split_development(data_path / 'Task1TrainSetCorpus199',
-    #                   data_path / '../devel_docids.txt')
     convert(data_path / 'Task1TrainSetCorpus199/TRAIN_REPORTS',
             data_path / 'Task1TrainSetGOLD199knowtatorehost/Task1Gold',
-            data_path / '../Training.tsv')
+            dest_path / 'Training.tsv')
 
     convert(data_path / 'Task1TrainSetCorpus199/DEV_REPORTS',
             data_path / 'Task1TrainSetGOLD199knowtatorehost/Task1Gold',
-            data_path / '../Development.tsv')
+            dest_path / 'Development.tsv')
 
-    # convert(data_path / 'Task1TestSetCorpus100/ALLREPORTS',
-    #         data_path / 'Task1Gold_SN2012/Gold_SN2012',
-    #         data_path / '../Test.tsv')
+    convert(data_path / 'Task1TestSetCorpus100/ALLREPORTS',
+            data_path / 'Task1Gold_SN2012/Gold_SN2012',
+            dest_path / 'Test.tsv')
+
+
+if __name__ == '__main__':
+    fire.Fire(create_clefe_bert)
