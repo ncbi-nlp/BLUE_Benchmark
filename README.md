@@ -1,9 +1,14 @@
 # BLUE, the Biomedical Language Understanding Evaluation benchmark
 
+**\*\*\*\*\* New June 17th, 2019: data in BERT format \*\*\*\*\***
+
+We uploaded some [datasets](https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1) that are ready to be used with the [NCBI_BERT codes](https://github.com/ncbi-nlp/NCBI_BERT).
+
+## Introduction
+
 BLUE benchmark consists of five different biomedicine text-mining tasks with ten corpora.
 Here, we rely on preexisting datasets because they have been widely used by the BioNLP community as shared tasks.
-These tasks cover a diverse range of text genres (biomedical literature and clinical notes), dataset sizes, and degrees of difficulty and, more importantly,
-highlight common biomedicine text-mining challenges.
+These tasks cover a diverse range of text genres (biomedical literature and clinical notes), dataset sizes, and degrees of difficulty and, more importantly, highlight common biomedicine text-mining challenges.
 
 ## Tasks
 
@@ -23,7 +28,7 @@ highlight common biomedicine text-mining challenges.
 
 ### Sentence similarity
 
-[BIOSSTS](http://tabilab.cmpe.boun.edu.tr/BIOSSES/) is a corpus of sentence pairs selected from the Biomedical Summarization Track Training Dataset in the biomedical domain.
+[BIOSSES](http://tabilab.cmpe.boun.edu.tr/BIOSSES/) is a corpus of sentence pairs selected from the Biomedical Summarization Track Training Dataset in the biomedical domain.
 Here, we randomly select 80% for training and 20% for testing because there is no standard splits in the released data.
 
 [MedSTS](https://mayoclinic.pure.elsevier.com/en/publications/medsts-a-resource-for-clinical-semantic-textual-similarity) is a corpus of sentence pairs selected from Mayo Clinics clinical data warehouse.
@@ -59,7 +64,7 @@ and test sets in [Romanov and Shivade](https://www.aclweb.org/anthology/D18-1187
 
 ### Datasets
 
-Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE/releases/tag/0.1](https://github.com/ncbi-nlp/BLUE/releases/tag/0.1)
+Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1](https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1)
 
 ## Baselines
 
@@ -107,8 +112,8 @@ Please see [https://github.com/ncbi-nlp/NCBI_BERT](https://github.com/ncbi-nlp/N
 
 ## Citing BLUE
 
-*  Peng Y, Yan S, Lu Z. Transfer Learning in Biomedical Natural Language Processing: An
-Evaluation of BERT and ELMo on Ten Benchmarking Datasets. In *Proceedings of the Workshop on Biomedical Natural Language Processing (BioNLP)*. 2019.
+*  Peng Y, Yan S, Lu Z. [Transfer Learning in Biomedical Natural Language Processing: An
+Evaluation of BERT and ELMo on Ten Benchmarking Datasets](https://arxiv.org/abs/1906.05474). In *Proceedings of the Workshop on Biomedical Natural Language Processing (BioNLP)*. 2019.
 
 ```
 @InProceedings{peng2019transfer,
@@ -122,7 +127,7 @@ Evaluation of BERT and ELMo on Ten Benchmarking Datasets. In *Proceedings of the
 ## Acknowledgments
 
 This work was supported by the Intramural Research Programs of the National Institutes of Health, National Library of
-Medicine and Clinical Center.
+Medicine and Clinical Center. This work was supported by the National Library of Medicine of the National Institutes of Health under award number K99LM013001-01.
 
 We are also grateful to the authors of BERT and ELMo to make the data and codes publicly available.
 
