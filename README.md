@@ -105,7 +105,7 @@ We iterated the training process for 20 epochs with batch size 64 and early stop
 Please see [https://github.com/ncbi-nlp/NCBI_BERT](https://github.com/ncbi-nlp/NCBI_BERT).
 
 
-## Citing NCBI BERT
+## Citing BLUE
 
 *  Peng Y, Yan S, Lu Z. Transfer Learning in Biomedical Natural Language Processing: An
 Evaluation of BERT and ELMo on Ten Benchmarking Datasets. In *Proceedings of the Workshop on Biomedical Natural Language Processing (BioNLP)*. 2019.
