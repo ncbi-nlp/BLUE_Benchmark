@@ -1,5 +1,7 @@
 # BLUE, the Biomedical Language Understanding Evaluation benchmark
 
+**\*\*\*\*\* New Aug 13th, 2019: Change DDI metric from micro-F1 to macro-F1 \*\*\*\*\***
+
 **\*\*\*\*\* New July 11th, 2019: preprocessed PubMed texts \*\*\*\*\***
 
 We uploaded the [preprocessed PubMed texts](https://github.com/ncbi-nlp/NCBI_BERT/blob/master/README.md#pubmed)  that were used to pre-train the NCBI_BERT models.
@@ -23,7 +25,7 @@ These tasks cover a diverse range of text genres (biomedical literature and clin
 | BC5CDR-disease  |  4182 | 4244 | 4424 | NER                     | F1                  | Biomedical |
 | BC5CDR-chemical |  5203 | 5347 | 5385 | NER                     | F1                  | Biomedical |
 | ShARe/CLEFE     |  4628 | 1075 | 5195 | NER                     | F1                  | Clinical   |
-| DDI             |  2937 | 1004 |  979 | Relation extraction     | micro F1            | Biomedical |
+| DDI             |  2937 | 1004 |  979 | Relation extraction     | macro F1            | Biomedical |
 | ChemProt        |  4154 | 2416 | 3458 | Relation extraction     | micro F1            | Biomedical |
 | i2b2-2010       |  3110 |   11 | 6293 | Relation extraction     | F1                  | Clinical   |
 | HoC             |  1108 |  157 |  315 | Document classification | F1                  | Biomedical |
@@ -51,7 +53,7 @@ We use the standard training and test set in the ShARe/CLEF eHealth Tasks 1.
 ### Relation extraction
 
 [DDI](http://labda.inf.uc3m.es/ddicorpus) extraction 2013 corpus is a collection of 792 texts selected from the DrugBank database and other 233 Medline abstracts
-In our benchmark, we use 624 train files and 191 test files to evaluate the performance and report the micro-average F1-score of the four DDI types.
+In our benchmark, we use 624 train files and 191 test files to evaluate the performance and report the macro-average F1-score of the four DDI types.
 
 [ChemProt](https://biocreative.bioinformatics.udel.edu/news/corpora/) consists of 1,820 PubMed abstracts with chemical-protein interactions and was used in the BioCreative VI text mining chemical-protein interactions shared task
 We use the standard training and test sets in the ChemProt shared task and evaluate the same five classes: CPR:3, CPR:4, CPR:5, CPR:6, and CPR:9.
@@ -79,7 +81,7 @@ Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE_Benchmark/r
 | BC5CDR-disease  |       F |  84.1 | 83.9 |    85.9 |                86.6 |                  85.4 |                 82.9 |                   83.8 |
 | BC5CDR-chemical |       F |  93.3 | 91.5 |    93.0 |                93.5 |                  92.4 |                 91.7 |                   91.1 |
 | ShARe/CLEFE     |       F |  70.0 | 75.6 |    72.8 |                75.4 |                  77.1 |                 72.7 |                   74.4 |
-| DDI             |       F |  72.9 | 78.9 |    78.8 |                78.1 |                  79.4 |                 79.9 |                   76.3 |
+| DDI             |       F |  72.9 | 62.0 |    78.8 |                78.1 |                  79.4 |                 79.9 |                   76.3 |
 | ChemProt        |       F |  64.1 | 66.6 |    71.3 |                72.5 |                  69.2 |                 74.4 |                   65.1 |
 | i2b2            |       F |  73.7 | 71.2 |    72.2 |                74.4 |                  76.4 |                 73.3 |                   73.9 |
 | HoC             |       F |  81.5 | 80.0 |    82.9 |                85.3 |                  83.1 |                 87.3 |                   85.3 |
@@ -133,7 +135,7 @@ Evaluation of BERT and ELMo on Ten Benchmarking Datasets](https://arxiv.org/abs/
 This work was supported by the Intramural Research Programs of the National Institutes of Health, National Library of
 Medicine and Clinical Center. This work was supported by the National Library of Medicine of the National Institutes of Health under award number K99LM013001-01.
 
-We are also grateful to the authors of BERT and ELMo to make the data and codes publicly available.
+We are also grateful to the authors of BERT and ELMo to make the data and codes publicly available. We would like to thank Geeticka Chauhan for providing thoughtful comments.
 
 ## Disclaimer
 
