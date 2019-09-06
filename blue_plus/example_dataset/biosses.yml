@@ -1,0 +1,28 @@
+# dataset name
+name: BIOSSES
+
+# description of this dataset.
+description: A corpus of sentence pairs selected from the Biomedical Summarization Track Training
+  Dataset in the biomedical domain.
+
+version: 1.0
+
+# The citation to use for this dataset.
+citation: "Sogancioglu G, Ozturk H, Ozgur A. BIOSSES: a semantic sentence similarity estimation
+  system for the biomedical domain. Bioinformatics. 2017 Jul 12;33(14):i49-58."
+
+# Homepages of the dataset
+links:
+  # original dataset
+  train.tsv: http://pengyifan.com/tmp/BIOSSES/train.tsv
+  dev.tsv: http://pengyifan.com/tmp/BIOSSES/dev.tsv
+  test.tsv: http://pengyifan.com/tmp/BIOSSES/test.tsv
+  test_results.tsv: http://pengyifan.com/tmp/BIOSSES/test_results.tsv
+  # license information
+  # license.txt
+  # BERT version
+  #  bert_train: bert_train.csv
+  #  bert_dev: bert_dev.csv
+  #  bert_test: bert_test.csv
+  #  bert_test_results: bert_test_results.csv
+
