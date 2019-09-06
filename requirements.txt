@@ -1,1 +1,1 @@
-PyYAML
+pyyaml==5.1
