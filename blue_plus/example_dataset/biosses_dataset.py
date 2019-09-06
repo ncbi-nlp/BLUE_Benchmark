@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 import urllib.request
 from pathlib import Path
 
@@ -7,7 +8,8 @@ import pandas as pd
 import yaml
 from scipy.stats import pearsonr
 
-from blue.blue_plus.dataset import BaseDataset
+sys.path.append(os.path.abspath(os.path.join(__file__, os.pardir, os.pardir, os.pardir)))
+from blue_plus.dataset import BaseDataset
 
 
 class BIOSSES_Dataset(BaseDataset):
