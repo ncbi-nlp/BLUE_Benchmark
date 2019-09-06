@@ -7,33 +7,11 @@ import pandas as pd
 import yaml
 from scipy.stats import pearsonr
 
+from blue.blue_plus.dataset import BaseDataset
 
-class BIOSSES_Dataset:
-    def __init__(self, config_file):
-        print(config_file)
-        with open(config_file, encoding='utf8') as fp:
-            self.config = yaml.load(fp, yaml.FullLoader)
-        self.name = self.config['name']
-        self.description = self.config['description']
-        self.version = self.config['version']
-        self.citation = self.config['citation']
-        self.links = self.config['links']
 
-    @property
-    def full_name(self):
-        """Full canonical name: (<name>_<version>)."""
-        return '{}_{}'.format(self.name, self.version)
-
+class BIOSSES_Dataset(BaseDataset):
     def download(self, download_dir='blue_plus_data', override=False):
-        """Downloads and prepares dataset for reading.
-
-        Args:
-          download_dir: directory where downloaded files are stored.
-            Defaults to "blue_plus_data/<full_name>".
-          override: True to override the data
-        Raises:
-          IOError: if there is not enough disk space available.
-        """
         download_dir = Path(download_dir)
         for local_name, url in self.links.items():
             local_data_path = download_dir / self.full_name / local_name
