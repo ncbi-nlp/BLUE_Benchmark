@@ -33,19 +33,19 @@ If the data belongs to one of the tasks in BLUE (sentence similarity, named enti
  1. Pick a name for your dataset (e.g. CRAFT)
  2. Fork the BLUE_Benchmark project on GitHub ([https://github.com/ncbi-nlp/BLUE_Benchmark](https://github.com/ncbi-nlp/BLUE_Benchmark)), and create a new branch (e.g. craft)
  3. In your branch, create a subfolder (e.g., CRAFT) in the ‘blue_plus’ folder with at least the following files:
-	 - dataset.yml - The configuration file
+	 - your_dataset.yml - The configuration file
 		 * Dataset name
 		 * Dataset description
 		 * Version
 		 * The citation to use for this dataset
 		 * Links to download the original data, BERT-formatted data and its results
 		 * Your dataset license information
-	 - dataset.py - downloading the datasets and evaluating the results.
-		 * Implement a dataset class to inherit the abstract class BaseDataset.
-		 * The method ‘download’ should Ddownload the data sets from the official internet distribution location (ie, “links” in the configuration)
-		 * The method ‘evaluate’ should Eevaluate the results
+	 - your_dataset.py - downloading the datasets and evaluating the results.
+		 * Implement a class to inherit the abstract class BaseDataset in [dataset.py](https://github.com/ncbi-nlp/BLUE_Benchmark/blob/master/blue_plus/dataset.py).
+		 * The method `download` should download the data sets from the official internet distribution location (ie, “links” in the configuration)
+		 * The method `evaluate` should evaluate the results
 		 * CLI entry points to download the data
-	- requirements.txt - a list of packages the script dataset.py relies on.
+	- requirements.txt - a list of packages the script your_dataset.py relies on.
  4. Send a “pull request” back to BLUE-PLUS
 
 An example dataset can be found at [https://github.com/ncbi-nlp/BLUE_Benchmark/tree/master/blue_plus](https://github.com/ncbi-nlp/BLUE_Benchmark/tree/master/blue_plus)
