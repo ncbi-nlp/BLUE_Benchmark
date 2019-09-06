@@ -1,9 +1,5 @@
 import logging
 import os
-import re
-
-import requests
-import wget
 import urllib.request
 from pathlib import Path
 
