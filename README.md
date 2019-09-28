@@ -58,6 +58,9 @@ In our benchmark, we use 624 train files and 191 test files to evaluate the perf
 [ChemProt](https://biocreative.bioinformatics.udel.edu/news/corpora/) consists of 1,820 PubMed abstracts with chemical-protein interactions and was used in the BioCreative VI text mining chemical-protein interactions shared task
 We use the standard training and test sets in the ChemProt shared task and evaluate the same five classes: CPR:3, CPR:4, CPR:5, CPR:6, and CPR:9.
 
+[i2b2 2010](https://www.i2b2.org/NLP/DataSets/) shared task collection consists of 170 documents for training and 256 documents for testing, which is the subset of the original dataset. 
+The dataset was collected from three different hospitals and was annotated by medical practitioners for eight types of relatiions between problems and treatments.
+
 ### Document multilabel classification
 
 [HoC](https://www.cl.cam.ac.uk/~sb895/HoC.html) (the Hallmarks of Cancers corpus) consists of 1,580 PubMed abstracts annotated with ten currently known hallmarks of cancer
@@ -83,7 +86,7 @@ Some datasets can be downloaded at [https://github.com/ncbi-nlp/BLUE_Benchmark/r
 | ShARe/CLEFE     |       F |  70.0 | 75.6 |    72.8 |                75.4 |                  77.1 |                 72.7 |                   74.4 |
 | DDI             |       F |  72.9 | 62.0 |    78.8 |                78.1 |                  79.4 |                 79.9 |                   76.3 |
 | ChemProt        |       F |  64.1 | 66.6 |    71.3 |                72.5 |                  69.2 |                 74.4 |                   65.1 |
-| i2b2            |       F |  73.7 | 71.2 |    72.2 |                74.4 |                  76.4 |                 73.3 |                   73.9 |
+| i2b2 2010       |       F |  73.7 | 71.2 |    72.2 |                74.4 |                  76.4 |                 73.3 |                   73.9 |
 | HoC             |       F |  81.5 | 80.0 |    82.9 |                85.3 |                  83.1 |                 87.3 |                   85.3 |
 | MedNLI          |     acc |  73.5 | 71.4 |    80.5 |                82.2 |                  84.0 |                 81.5 |                   83.8 |
 
@@ -97,7 +100,7 @@ SOTA, state-of-the-art as of April 2019, to the best of our knowledge
 * **DDI**: Zhang et al. 2018. [Drug-drug interaction extraction via hierarchical RNNs on sequence and shortest dependency paths](https://academic.oup.com/bioinformatics/article/34/5/828/4565590). Bioinformatics (Oxford, England), 34:828–835.
 * **Chem-Prot**: Peng et al. 2018. [Extracting chemical-protein relations with ensembles of SVM and deep learning models](https://academic.oup.com/database/article/doi/10.1093/database/bay073/5055578). Database: the journal of biological
 databases and curation, 2018.
-* **i2b2**: Rink et al. 2011. [Automatic extraction of relations between medical concepts in clinical texts](https://academic.oup.com/jamia/article/18/5/594/833364). Journal of the American Medical Informatics Association, 18:594–600.
+* **i2b2 2010**: Rink et al. 2011. [Automatic extraction of relations between medical concepts in clinical texts](https://academic.oup.com/jamia/article/18/5/594/833364). Journal of the American Medical Informatics Association, 18:594–600.
 * **HoC**: Du et al. 2019. [ML-Net: multilabel classification of biomedical texts with deep neural networks](https://arxiv.org/abs/1811.05475v2). Journal of the American Medical Informatics Association (JAMIA).
 * **MedNLI**: Romanov et al. 2018. [Lessons from natural language inference in the clinical domain](https://www.aclweb.org/anthology/D18-1187). In Proceedings of EMNLP, pages 1586–1596.
 
@@ -124,7 +127,8 @@ Evaluation of BERT and ELMo on Ten Benchmarking Datasets](https://arxiv.org/abs/
 ```
 @InProceedings{peng2019transfer,
   author    = {Yifan Peng and Shankai Yan and Zhiyong Lu},
-  title     = {Transfer Learning in Biomedical Natural Language Processing: An Evaluation of BERT and ELMo on Ten Benchmarking Datasets},
+  title     = {Transfer Learning in Biomedical Natural Language Processing: 
+               An Evaluation of BERT and ELMo on Ten Benchmarking Datasets},
   booktitle = {Proceedings of the 2019 Workshop on Biomedical Natural Language Processing (BioNLP 2019)},
   year      = {2019},
 }
