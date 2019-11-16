@@ -61,7 +61,7 @@ In our benchmark, we use 624 train files and 191 test files to evaluate the perf
 We use the standard training and test sets in the ChemProt shared task and evaluate the same five classes: CPR:3, CPR:4, CPR:5, CPR:6, and CPR:9.
 
 [i2b2 2010](https://www.i2b2.org/NLP/DataSets/) shared task collection consists of 170 documents for training and 256 documents for testing, which is the subset of the original dataset. 
-The dataset was collected from three different hospitals and was annotated by medical practitioners for eight types of relatiions between problems and treatments.
+The dataset was collected from three different hospitals and was annotated by medical practitioners for eight types of relations between problems and treatments.
 
 ### Document multilabel classification
 
