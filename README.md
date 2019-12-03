@@ -6,11 +6,11 @@
 
 **\*\*\*\*\* New July 11th, 2019: preprocessed PubMed texts \*\*\*\*\***
 
-We uploaded the [preprocessed PubMed texts](https://github.com/ncbi-nlp/NCBI_BERT/blob/master/README.md#pubmed)  that were used to pre-train the NCBI_BERT models.
+We uploaded the [preprocessed PubMed texts](https://github.com/ncbi-nlp/ncbi_bluebert/blob/master/README.md#pubmed)  that were used to pre-train the NCBI_BERT models.
 
 **\*\*\*\*\* New June 17th, 2019: data in BERT format \*\*\*\*\***
 
-We uploaded some [datasets](https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1) that are ready to be used with the [NCBI_BERT codes](https://github.com/ncbi-nlp/NCBI_BERT).
+We uploaded some [datasets](https://github.com/ncbi-nlp/BLUE_Benchmark/releases/tag/0.1) that are ready to be used with the [NCBI BlueBERT codes](https://github.com/ncbi-nlp/ncbi_bluebert).
 
 ## Introduction
 
@@ -118,7 +118,7 @@ We iterated the training process for 20 epochs with batch size 64 and early stop
 
 ### Fine-tuning with BERT
 
-Please see [https://github.com/ncbi-nlp/NCBI_BERT](https://github.com/ncbi-nlp/NCBI_BERT).
+Please see [https://github.com/ncbi-nlp/ncbi_bluebert](https://github.com/ncbi-nlp/ncbi_bluebert).
 
 
 ## Citing BLUE
