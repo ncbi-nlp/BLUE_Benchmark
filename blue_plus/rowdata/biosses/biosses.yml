@@ -1,0 +1,31 @@
+# dataset name
+name: BIOSSES_row_data
+
+# description of this dataset.
+description: the yml is used for configuration of row data processing
+
+version: 1.0
+
+
+# Homepages of the dataset
+links:
+  # original dataset
+  train.tsv: /rowdata/biosses/train.tsv
+  dev.tsv: /rowdata/biosses/dev.tsv
+  test.tsv: /rowdata/biosses/test.tsv
+  test_results.tsv: /rowdata/biosses/test_results.tsv
+  path_pair: /rowdata/biosses/pairs.xls
+  path_score: /rowdata/biosses/scores.xls
+  # license information
+  # license.txt
+  # BERT version
+  #  bert_train: bert_train.csv
+  #  bert_dev: bert_dev.csv
+  #  bert_test: bert_test.csv
+  #  bert_test_results: bert_test_results.csv
+
+save_path:
+  train: /rowdata/biosses/train.tsv
+  test: /rowdata/biosses/test.tsv
+  dev: /rowdata/biosses/dev.tsv
+  test_results: /rowdata/biosses/test_results.tsv
