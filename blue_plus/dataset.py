@@ -66,8 +66,8 @@ class form_tsv(object):
         self.path_pair = self.config['links'].get('path_pair') if 'links' in self.config else ""
         self.path_score = self.config['links'].get('path_score') if 'links' in self.config else ""
         self.data = None
-    def biosses_format_data(self, col_index_pair=["index", "s1", 's2'],
-                            col_index_score=['index', 'score1', 'score2', 'score3', 'score4', 'score5']):
+    def biosses_format_data(self, col_index_pair=[ "s1", 's2'],
+                            col_index_score=[ 'score1', 'score2', 'score3', 'score4', 'score5']):
         """
 
         self.path_pair: the path for pairs.xls
@@ -81,26 +81,31 @@ class form_tsv(object):
         if self.path_pair is '':
             raise FileNotFoundError("path_pair doesn't exit,please check yml configuration file")
 
-        new_col_index = ['index', 'genre', 'filename', 'year', 'old_index', 'source1', 'source2', 'sentence1',
+        new_col_index = ['genre', 'filename', 'year', 'old_index', 'source1', 'source2', 'sentence1',
                          'sentence2', 'score']
         # drop the first line
-        data = pd.read_excel(os.getcwd()+self.path_pair, header=0, drop=True)
+        data = pd.read_excel(os.getcwd()+self.path_pair,index_col=0, header=0, drop=True)
         data.columns = col_index_pair
-        index = [i for i in range(data.count()[0])]
-        data['index'] = index
 
-        score = pd.read_excel(os.getcwd()+self.path_score, header=0, drop=True)
+        # index = [i for i in range(data.count()[0])]
+        # data.index = index
+        data = data.reset_index(drop=True)
+
+        score = pd.read_excel(os.getcwd()+self.path_score, index_col=0, header=0, drop=True)
         score.columns = col_index_score
-        score['index'] = index
-        score = score[score.columns[1:]].mean(axis=1)
+        score = score.reset_index(drop=True)
+        # score.index = index
+        print(score[score.columns[0]])
+        score = score.mean(axis=1)
 
-        rtn = pd.DataFrame(index=index, columns=new_col_index)
 
-        rtn['index'] = index
+        rtn = pd.DataFrame(columns=new_col_index)
+        rtn = rtn.reset_index()
+        # rtn['index'] = index
         rtn['gener'] = 'GENRE'
         rtn['filename'] = 'BIOSSES'
         rtn['year'] = 1997
-        rtn['old_index'] = index
+        rtn['old_index'] = data.index
         rtn['source1'] = 'BIOSSES'
         rtn['source2'] = 'BIOSSES'
         rtn['sentence1'] = data[data.columns[1]]
