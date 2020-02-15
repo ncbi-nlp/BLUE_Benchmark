@@ -95,23 +95,25 @@ class form_tsv(object):
         score.columns = col_index_score
         score = score.reset_index(drop=True)
         # score.index = index
-        print(score[score.columns[0]])
+
         score = score.mean(axis=1)
 
 
-        rtn = pd.DataFrame(columns=new_col_index)
-        rtn = rtn.reset_index()
+        rtn = pd.DataFrame(columns=new_col_index,dtype= str)
+        # rtn = rtn.reset_index(drop=True)
         # rtn['index'] = index
-        rtn['gener'] = 'GENRE'
+
+        rtn['genre'] = ['GENRE' for _ in range(100)]
         rtn['filename'] = 'BIOSSES'
-        rtn['year'] = 1997
+        rtn['year'] = '1997'
         rtn['old_index'] = data.index
         rtn['source1'] = 'BIOSSES'
         rtn['source2'] = 'BIOSSES'
-        rtn['sentence1'] = data[data.columns[1]]
-        rtn['sentence2'] = data[data.columns[2]]
+        rtn['sentence1'] = data[data.columns[0]]
+        rtn['sentence2'] = data[data.columns[1]]
         rtn['score'] = score
         self.data = rtn
+
         return self.data
 
     def data_split(self, data, p_train=0.7, p_test=0.14):
@@ -126,20 +128,27 @@ class form_tsv(object):
         assert p_train + p_test < 1, "the percentages of training and testing data should be less than 100%"
         data = data.sample(frac=1.0)
 
-        data_count = data.count()
-        train_count = np.floor(data_count * p_train)
-        test_count = train_count + np.floor(data_count * p_test)
+        data_count = data.shape[0]
 
-        data = data.reset_index()
+        train_count = int(np.floor(data_count * p_train))
+        # print(train_count)
+        test_count = int(train_count + np.floor(data_count * p_test))
 
-        train = data.iloc[0:data_count]
-        train = train.reset_index()
+        data = data.reset_index(drop=True)
+        # print(data['old_index'])
 
-        test = data.iloc[data_count:test_count]
-        test = test.reset_index()
+        train = data.iloc[0:train_count]
+        train = train.reset_index(drop=True)
+        # print(train)
+        # print(train['old_index'])
+
+        # print(train_count,"    ", test_count)
+        test = data.iloc[train_count:test_count]
+        test = test.reset_index(drop=True)
+
 
         dev = data.iloc[test_count:]
-        dev = dev.reset_index()
+        dev = dev.reset_index(drop=True)
 
         test_results = test['score'].copy()
         return train, test, dev, test_results
@@ -157,7 +166,4 @@ class form_tsv(object):
                 print(path,"exits! ")
                 break
 
-fm = form_tsv()
-
-fm.save_files()
 

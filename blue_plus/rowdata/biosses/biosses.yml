@@ -25,7 +25,7 @@ links:
   #  bert_test_results: bert_test_results.csv
 
 save_path:
-  train: /rowdata/biosses/train.tsv
-  test: /rowdata/biosses/test.tsv
-  dev: /rowdata/biosses/dev.tsv
-  test_results: /rowdata/biosses/test_results.tsv
+  train: rowdata/biosses/train.tsv
+  test: rowdata/biosses/test.tsv
+  dev: rowdata/biosses/dev.tsv
+  test_results: rowdata/biosses/test_results.tsv
