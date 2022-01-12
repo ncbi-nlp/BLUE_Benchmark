@@ -1,7 +1,5 @@
 # BLUE, the Biomedical Language Understanding Evaluation benchmark
 
-[![HitCount](https://hits.dwyl.com/ncbi-nlp/BLUE_Benchmark.svg)](https://hits.dwyl.com/ncbi-nlp/BLUE_Benchmark)
-
 **\*\*\*\*\* New Aug 13th, 2019: Change DDI metric from micro-F1 to macro-F1 \*\*\*\*\***
 
 **\*\*\*\*\* New July 11th, 2019: preprocessed PubMed texts \*\*\*\*\***
