@@ -48,12 +48,16 @@ class BIOSSES_Dataset(BaseDataset):
 def main():
     logging.basicConfig(level=logging.INFO)
     dir = os.path.dirname(os.path.abspath(__file__))
+
+    print("dir:",dir)
+
     d = BIOSSES_Dataset(os.path.join(dir, 'biosses.yml'))
     print('Name:       ', d.full_name)
     print('Description:', d.description)
     print('Citation:   ', d.citation)
 
     dir = Path('blue_plus_data') / d.full_name
+    print("dir:",dir)
     dir.mkdir(parents=True, exist_ok=True)
     d.download(override=True)
     d.evaluate(dir / 'test.tsv', dir / 'test_results.tsv', dir / 'test_results.txt')

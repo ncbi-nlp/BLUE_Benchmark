@@ -1,1 +1,3 @@
+pandas
+scipy
 pyyaml==5.1
